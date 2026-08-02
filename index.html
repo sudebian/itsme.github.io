@@ -1,18 +1,17 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudenaz | Software & System Security Analysis</title>
-    <meta name="description" content="Sudenaz (sudebian) - Yazılım analizi, tersine mühendislik ve sistem güvenliği kişisel portfolyosu.">
-    <meta name="keywords" content="sudebian, sudenaz, reverse engineering, binary analysis, cybersecurity, software architecture">
+    <meta name="description" content="Sudenaz (sudebian) - Tersine mühendislik, binary analiz, zafiyet araştırması ve sistem güvenliği kişisel portfolyosu.">
+    <meta name="keywords" content="sudebian, sudenaz, reverse engineering, binary analysis, debugging, windows internals, malware analysis, dynamic analysis, fuzzing">
     <meta name="author" content="Sudenaz">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Sudenaz | Software & System Security Analysis">
-    <meta property="og:description" content="Yazılım analizi, binary inceleme ve sistem güvenliği odaklı kişisel portfolyo.">
+    <meta property="og:description" content="Tersine mühendislik, binary analiz, zararlı yazılım inceleme ve sistem güvenliği odağında kişisel portfolyo.">
     <meta property="og:image" content="assets/images/profile.webp">
 
     <!-- Favicon & Manifest -->
@@ -22,14 +21,15 @@
 
     <style>
         :root {
-            --bg-dark: #070510;
+            --bg-dark: #05030a;
             --purple-main: #8b5cf6;
-            --purple-glow: rgba(139, 92, 246, 0.4);
+            --purple-glow: rgba(139, 92, 246, 0.35);
             --pink-neon: #ec4899;
-            --pink-glow: rgba(236, 72, 153, 0.5);
-            --glass-bg: rgba(18, 14, 36, 0.55);
+            --pink-glow: rgba(236, 72, 153, 0.45);
+            --cyan-accent: #06b6d4;
+            --glass-bg: rgba(15, 11, 30, 0.65);
             --glass-border: rgba(255, 255, 255, 0.12);
-            --glass-hover: rgba(255, 255, 255, 0.18);
+            --glass-hover: rgba(236, 72, 153, 0.3);
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
         }
@@ -56,23 +56,23 @@
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--purple-main), var(--pink-neon));
+            background: linear-gradient(90deg, var(--purple-main), var(--pink-neon), var(--cyan-accent));
             width: 0%;
             z-index: 1000;
-            box-shadow: 0 0 10px var(--pink-neon);
+            box-shadow: 0 0 12px var(--pink-neon);
         }
 
         /* Mouse Glow Aura */
         #mouse-glow {
             position: fixed;
-            width: 450px;
-            height: 450px;
+            width: 500px;
+            height: 500px;
             border-radius: 50%;
-            background: radial-gradient(circle, var(--purple-glow) 0%, rgba(236,72,153,0.15) 40%, transparent 70%);
+            background: radial-gradient(circle, var(--purple-glow) 0%, rgba(236, 72, 153, 0.12) 45%, transparent 70%);
             pointer-events: none;
             transform: translate(-50%, -50%);
             z-index: 1;
-            transition: transform 0.08s ease-out;
+            transition: transform 0.06s ease-out;
             mix-blend-mode: screen;
         }
 
@@ -85,65 +85,65 @@
             height: 100vh;
             z-index: 0;
             overflow: hidden;
-            opacity: 0.6;
+            opacity: 0.65;
             pointer-events: none;
         }
 
         .aurora {
             position: absolute;
-            filter: blur(80px);
+            filter: blur(90px);
             opacity: 0.5;
             border-radius: 50%;
-            animation: moveAurora 20s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+            animation: moveAurora 22s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
         }
 
         .aurora-1 {
-            top: -10%;
+            top: -15%;
             left: -10%;
-            width: 50vw;
-            height: 50vw;
+            width: 55vw;
+            height: 55vw;
             background: radial-gradient(circle, var(--purple-main), transparent 70%);
         }
 
         .aurora-2 {
-            bottom: -10%;
+            bottom: -15%;
             right: -10%;
             width: 60vw;
             height: 60vw;
             background: radial-gradient(circle, var(--pink-neon), transparent 70%);
-            animation-delay: -5s;
+            animation-delay: -6s;
         }
 
         .aurora-3 {
-            top: 40%;
-            left: 30%;
-            width: 40vw;
-            height: 40vw;
-            background: radial-gradient(circle, #4c1d95, transparent 70%);
-            animation-delay: -10s;
+            top: 35%;
+            left: 25%;
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle, #3b0764, transparent 70%);
+            animation-delay: -12s;
         }
 
         @keyframes moveAurora {
             0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(100px, 50px) scale(1.1); }
-            100% { transform: translate(-50px, 100px) scale(0.9); }
+            50% { transform: translate(80px, 60px) scale(1.12); }
+            100% { transform: translate(-60px, 90px) scale(0.92); }
         }
 
-        /* Glassmorphism Common Layout */
+        /* Glassmorphism Card Style */
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
             transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .glass-card:hover {
             border-color: var(--glass-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px 0 rgba(139, 92, 246, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px 0 rgba(236, 72, 153, 0.2);
         }
 
         /* Navigation */
@@ -153,8 +153,8 @@
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            max-width: 900px;
-            padding: 12px 24px;
+            max-width: 950px;
+            padding: 12px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -162,16 +162,19 @@
         }
 
         .nav-logo {
-            font-weight: 700;
-            font-size: 1.1rem;
+            font-weight: 800;
+            font-size: 1.15rem;
             color: #fff;
             text-decoration: none;
             letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #fff, var(--pink-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 24px;
             list-style: none;
         }
 
@@ -179,6 +182,7 @@
             color: var(--text-muted);
             text-decoration: none;
             font-size: 0.9rem;
+            font-weight: 500;
             transition: color 0.3s ease;
         }
 
@@ -186,7 +190,7 @@
             color: var(--pink-neon);
         }
 
-        /* Main Container */
+        /* Layout Container */
         main {
             position: relative;
             z-index: 2;
@@ -201,7 +205,7 @@
             grid-template-columns: 220px 1fr;
             gap: 40px;
             align-items: center;
-            padding: 40px;
+            padding: 44px;
             margin-bottom: 40px;
         }
 
@@ -212,7 +216,7 @@
             border-radius: 50%;
             padding: 4px;
             background: linear-gradient(135deg, var(--purple-main), var(--pink-neon));
-            box-shadow: 0 0 25px var(--purple-glow);
+            box-shadow: 0 0 30px var(--purple-glow);
         }
 
         .profile-img {
@@ -220,21 +224,21 @@
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
-            background-color: #1a102f;
+            background-color: #120924;
             display: block;
         }
 
         .hero-text h1 {
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             font-weight: 800;
-            margin-bottom: 8px;
-            background: linear-gradient(90deg, #fff, var(--pink-neon));
+            margin-bottom: 6px;
+            background: linear-gradient(90deg, #ffffff, var(--pink-neon));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-text .subtitle {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--purple-main);
             font-weight: 600;
             margin-bottom: 16px;
@@ -243,17 +247,17 @@
 
         .hero-text p {
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.65;
             font-size: 0.95rem;
         }
 
-        /* Section Headings */
+        /* Section Titles */
         .section-title {
             font-size: 1.5rem;
-            margin: 50px 0 24px;
+            margin: 52px 0 24px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             color: #fff;
         }
 
@@ -264,15 +268,43 @@
             background: linear-gradient(90deg, var(--glass-border), transparent);
         }
 
-        /* Focus Cards */
+        /* Tech Focus Badges Grid */
+        .tech-focus-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .focus-pill {
+            background: rgba(139, 92, 246, 0.12);
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            color: #e9d5ff;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+        }
+
+        .focus-pill:hover {
+            background: rgba(236, 72, 153, 0.2);
+            border-color: var(--pink-neon);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--pink-glow);
+        }
+
+        /* Feature Cards Grid */
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
             gap: 20px;
         }
 
         .card {
-            padding: 24px;
+            padding: 26px;
         }
 
         .card h3 {
@@ -283,68 +315,133 @@
 
         .card p {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-size: 0.92rem;
+            line-height: 1.6;
         }
 
-        /* Tech Badges */
-        .tag-container {
+        /* Architecture Pills */
+        .arch-badge-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 12px;
+            gap: 8px;
+            margin-top: 14px;
         }
 
-        .tag {
-            background: rgba(139, 92, 246, 0.15);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            color: #d8b4fe;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
+        .arch-badge {
+            font-size: 0.78rem;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            color: #a5f3fc;
+            font-weight: 600;
         }
 
-        /* GitHub Stats */
-        .stats-wrapper {
+        /* GitHub Section (Live Interactive Cards) */
+        .github-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .github-card-item {
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 12px;
+        }
+
+        .github-card-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        .stats-wrapper img {
-            max-width: 100%;
-            height: auto;
+        .github-card-title {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.05rem;
         }
 
-        /* Contact & Links */
+        .stat-val {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--purple-main), var(--pink-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-top: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Language Bar */
+        .lang-bar-wrapper {
+            margin-top: 10px;
+        }
+
+        .lang-bar {
+            height: 8px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            margin-bottom: 12px;
+        }
+
+        .lang-segment {
+            height: 100%;
+        }
+
+        .lang-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Contact & Buttons */
         .links-flex {
             display: flex;
             gap: 16px;
             flex-wrap: wrap;
-            margin-top: 10px;
+            margin-top: 16px;
         }
 
         .btn-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             color: #fff;
             text-decoration: none;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            border-radius: 10px;
+            font-size: 0.92rem;
             font-weight: 600;
-            background: rgba(236, 72, 153, 0.1);
+            background: rgba(236, 72, 153, 0.12);
             border: 1px solid var(--pink-neon);
             transition: all 0.3s ease;
         }
 
         .btn-link:hover {
             background: var(--pink-neon);
-            box-shadow: 0 0 15px var(--pink-glow);
+            box-shadow: 0 0 20px var(--pink-glow);
             color: #000;
         }
 
@@ -360,21 +457,20 @@
             z-index: 2;
         }
 
-        /* Responsive Breakpoints */
         @media (max-width: 768px) {
             .hero {
                 grid-template-columns: 1fr;
                 text-align: center;
                 justify-items: center;
-                padding: 24px;
+                padding: 28px;
             }
 
             .hero-text h1 {
-                font-size: 2rem;
+                font-size: 2.1rem;
             }
 
             .nav-links {
-                display: none; /* Basit mobil deneyimi */
+                display: none;
             }
 
             main {
@@ -398,8 +494,8 @@
         <a href="#" class="nav-logo">sudebian</a>
         <ul class="nav-links">
             <li><a href="#about">Hakkımda</a></li>
-            <li><a href="#focus">Odak Alanları</a></li>
-            <li><a href="#github">İstatistikler</a></li>
+            <li><a href="#focus">Teknik Odak</a></li>
+            <li><a href="#github">GitHub</a></li>
             <li><a href="#contact">İletişim</a></li>
         </ul>
     </nav>
@@ -414,66 +510,98 @@
                 <h1>Sudenaz</h1>
                 <div class="subtitle">Software & System Security Analysis</div>
                 <p>
-                    Düşük seviyeli sistem mimarileri, yazılım iç yapıları ve ikili (binary) dosya analizi üzerine odaklanan teknik inceleme odaklı geliştirici. Kodun derleme sonrası davranışlarını inceleme ve sistem güvenliğini optimize etme üzerine projeler yürütüyorum.
+                    Aşağı seviye sistem mekanizmaları, ikili (binary) dosya yapıları ve zararlı yazılım davranışları üzerine çalışan araştırmacı. Yazılımların iç çalışma mantıklarını incelemek, zafiyet analizleri yapmak ve sistem düzeyinde güvenliği artırmak üzerine odaklanıyorum.
                 </p>
             </div>
         </section>
 
         <!-- Technical Focus Section -->
         <h2 id="focus" class="section-title">Teknik Odak Alanları</h2>
+        
+        <div class="tech-focus-grid">
+            <div class="focus-pill">Reverse Engineering</div>
+            <div class="focus-pill">Binary Analysis</div>
+            <div class="focus-pill">Debugging</div>
+            <div class="focus-pill">Windows Internals</div>
+            <div class="focus-pill">Malware Analysis</div>
+            <div class="focus-pill">Dynamic Analysis</div>
+            <div class="focus-pill">Fuzzing</div>
+        </div>
+
         <div class="grid-2">
             <div class="glass-card card">
-                <h3>Binary & Statik Analiz</h3>
-                <p>Derlenmiş yürütülebilir dosyaların çalışma mantığını kavrama, veri akışını izleme ve kod blokları arasındaki ilişkileri haritalandırma.</p>
-                <div class="tag-container">
-                    <span class="tag">Assembly</span>
-                    <span class="tag">C / C++</span>
-                    <span class="tag">Disassembly</span>
+                <h3>Binary & Kod İnceleme</h3>
+                <p>Derlenmiş yazılımların statik yapısını ve akış şemalarını disassembler araçlarıyla çözümleyerek mantıksal ve güvenlik boşluklarını tespit etme.</p>
+                <div class="arch-badge-container">
+                    <span class="arch-badge">x86</span>
+                    <span class="arch-badge">x64</span>
+                    <span class="arch-badge">ARM</span>
                 </div>
             </div>
             <div class="glass-card card">
-                <h3>Sistem Güvenliği & Mimari</h3>
-                <p>İşletim sistemi seviyesinde süreç yönetimi, bellek yapısı analizleri ve güvenlik mekanizmalarının tespiti.</p>
-                <div class="tag-container">
-                    <span class="tag">Windows Internals</span>
-                    <span class="tag">Memory Structures</span>
-                    <span class="tag">Process Inspection</span>
+                <h3>Dinamik Analiz & Debugging</h3>
+                <p>Uygulamaların çalışma zamanı (runtime) davranışlarını, bellek kullanımlarını ve API çağrılarını debugger ortamlarında izleme ve analiz etme.</p>
+                <div class="arch-badge-container">
+                    <span class="arch-badge">Dynamic Analysis</span>
+                    <span class="arch-badge">Breakpoints</span>
                 </div>
             </div>
             <div class="glass-card card">
-                <h3>Otomasyon & Araç Geliştirme</h3>
-                <p>Analiz süreçlerini hızlandırmak için özel betikler, dosya ayrıştırıcılar ve arayüz entegrasyonları hazırlama.</p>
-                <div class="tag-container">
-                    <span class="tag">Python</span>
-                    <span class="tag">Automation</span>
-                    <span class="tag">Custom Tooling</span>
+                <h3>İşletim Sistemi Çekirdeği (Windows Internals)</h3>
+                <p>Süreç (process) yönetimi, bellek alanları, iş parçacıkları (threads) ve Windows API iç yapılarının güvenlik perspektifinden incelenmesi.</p>
+                <div class="arch-badge-container">
+                    <span class="arch-badge">Kernel & User Land</span>
+                    <span class="arch-badge">PE Structure</span>
                 </div>
             </div>
             <div class="glass-card card">
-                <h3>Yazılım Tasarımı</h3>
-                <p>Güvenli kod geliştirme prensiplerine uygun, sürdürülebilir ve performans odaklı uygulama mimarileri oluşturma.</p>
-                <div class="tag-container">
-                    <span class="tag">Secure Coding</span>
-                    <span class="tag">GUI Development</span>
-                    <span class="tag">Git</span>
+                <h3>Zararlı Yazılım & Zafiyet Tespiti</h3>
+                <p>Şüpheli yazılımların işlevlerini izole ortamlarda analiz etme ve otomatize fuzzing teknikleri ile yazılım dayanıklılığını test etme.</p>
+                <div class="arch-badge-container">
+                    <span class="arch-badge">Malware Analysis</span>
+                    <span class="arch-badge">Fuzzing</span>
                 </div>
             </div>
         </div>
 
-        <!-- GitHub Stats Section -->
-        <h2 id="github" class="section-title">GitHub Aktivitesi</h2>
-        <div class="glass-card stats-wrapper">
-            <img src="https://github-readme-stats.vercel.app/api?username=sudebian&show_icons=true&theme=synthwave&hide_border=true&bg_color=00000000" alt="GitHub Stats">
-            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=sudebian&layout=compact&theme=synthwave&hide_border=true&bg_color=00000000" alt="Top Languages">
+        <!-- Live GitHub Stats Section -->
+        <h2 id="github" class="section-title">GitHub Verileri</h2>
+        
+        <div class="github-cards-container">
+            <div class="glass-card github-card-item">
+                <div class="github-card-header">
+                    <span class="github-card-title">Genel İstatistikler</span>
+                </div>
+                <div>
+                    <div class="stat-label">Genel Depolar (Public Repos)</div>
+                    <div class="stat-val" id="repo-count">--</div>
+                </div>
+                <div>
+                    <div class="stat-label">Toplam Takipçi</div>
+                    <div class="stat-val" id="follower-count">--</div>
+                </div>
+            </div>
+
+            <div class="glass-card github-card-item">
+                <div class="github-card-header">
+                    <span class="github-card-title">En Çok Kullanılan Diller</span>
+                </div>
+                <div class="lang-bar-wrapper">
+                    <div class="lang-bar" id="lang-bar"></div>
+                    <ul class="lang-list" id="lang-list">
+                        <li>Yükleniyor...</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <!-- Contact Section -->
-        <h2 id="contact" class="section-title">İletişim & Bağlantılar</h2>
+        <h2 id="contact" class="section-title">İletişim</h2>
         <div class="glass-card card">
-            <p style="margin-bottom: 16px;">Projelerimi incelemek veya teknik konularda iletişime geçmek için GitHub profilimi ziyaret edebilirsiniz.</p>
+            <p style="margin-bottom: 12px;">Çalışmalarımı incelemek veya teknik konularda iletişime geçmek için GitHub profilimi ziyaret edebilirsiniz.</p>
             <div class="links-flex">
                 <a href="https://github.com/sudebian" target="_blank" rel="noopener noreferrer" class="btn-link">
-                    GitHub Profile
+                    GitHub Profile (sudebian)
                 </a>
             </div>
         </div>
@@ -492,12 +620,87 @@
             document.getElementById('scroll-progress').style.width = scrolled + '%';
         });
 
-        // Mouse Glow Tracking
+        // Mouse Glow
         const mouseGlow = document.getElementById('mouse-glow');
         window.addEventListener('mousemove', (e) => {
             mouseGlow.style.left = e.clientX + 'px';
             mouseGlow.style.top = e.clientY + 'px';
         });
+
+        // Live GitHub API Fetching
+        async function fetchGitHubStats() {
+            try {
+                // Fetch User Profile
+                const userRes = await fetch('https://api.github.com/users/sudebian');
+                if (userRes.ok) {
+                    const userData = await userRes.json();
+                    document.getElementById('repo-count').innerText = userData.public_repos;
+                    document.getElementById('follower-count').innerText = userData.followers;
+                }
+
+                // Fetch Repos for Language Breakdown
+                const reposRes = await fetch('https://api.github.com/users/sudebian/repos?per_page=100');
+                if (reposRes.ok) {
+                    const repos = await reposRes.json();
+                    const langMap = {};
+                    let totalCount = 0;
+
+                    repos.forEach(repo => {
+                        if (repo.language && !repo.fork) {
+                            langMap[repo.language] = (langMap[repo.language] || 0) + 1;
+                            totalCount++;
+                        }
+                    });
+
+                    const colors = {
+                        'Python': '#3572A5',
+                        'C++': '#f34b7d',
+                        'C': '#555555',
+                        'Assembly': '#6E4C13',
+                        'JavaScript': '#f1e05a',
+                        'HTML': '#e34c26',
+                        'CSS': '#563d7c'
+                    };
+
+                    const langBar = document.getElementById('lang-bar');
+                    const langList = document.getElementById('lang-list');
+                    
+                    langBar.innerHTML = '';
+                    langList.innerHTML = '';
+
+                    if (totalCount === 0) {
+                        langList.innerHTML = '<li>Özgün proje verisi bekleniyor.</li>';
+                        return;
+                    }
+
+                    Object.keys(langMap).forEach(lang => {
+                        const count = langMap[lang];
+                        const percentage = ((count / totalCount) * 100).toFixed(1);
+                        const color = colors[lang] || '#8b5cf6';
+
+                        // Progress segment
+                        const segment = document.createElement('div');
+                        segment.className = 'lang-segment';
+                        segment.style.width = percentage + '%';
+                        segment.style.backgroundColor = color;
+                        langBar.appendChild(segment);
+
+                        // List item
+                        const li = document.createElement('li');
+                        li.className = 'lang-item';
+                        li.innerHTML = `<span class="lang-dot" style="background-color: ${color}"></span> <strong>${lang}</strong> ${percentage}%`;
+                        langList.appendChild(li);
+                    });
+                }
+            } catch (err) {
+                console.error("GitHub API Hatası:", err);
+                document.getElementById('repo-count').innerText = "N/A";
+                document.getElementById('follower-count').innerText = "N/A";
+                document.getElementById('lang-list').innerHTML = "<li>Veriler alınamadı.</li>";
+            }
+        }
+
+        fetchGitHubStats();
     </script>
 </body>
 </html>
