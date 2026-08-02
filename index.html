@@ -40,6 +40,10 @@
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             scroll-behavior: smooth;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         body {
@@ -172,6 +176,12 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         .nav-links {
             display: flex;
             gap: 24px;
@@ -188,6 +198,33 @@
 
         .nav-links a:hover {
             color: var(--pink-neon);
+        }
+
+        /* Language Selector Toggle */
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2px;
+            cursor: pointer;
+        }
+
+        .lang-btn {
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 16px;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .lang-btn.active {
+            background: var(--pink-neon);
+            color: #000;
+            box-shadow: 0 0 10px var(--pink-glow);
         }
 
         /* Layout Container */
@@ -286,6 +323,9 @@
             font-weight: 600;
             letter-spacing: 0.3px;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
         }
 
         .focus-pill:hover {
@@ -492,12 +532,18 @@
 
     <nav class="glass-card">
         <a href="#" class="nav-logo">sudebian</a>
-        <ul class="nav-links">
-            <li><a href="#about">Hakkımda</a></li>
-            <li><a href="#focus">Teknik Odak</a></li>
-            <li><a href="#github">GitHub</a></li>
-            <li><a href="#contact">İletişim</a></li>
-        </ul>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="#about" data-tr="Hakkımda" data-en="About">Hakkımda</a></li>
+                <li><a href="#focus" data-tr="Teknik Odak" data-en="Technical Focus">Teknik Odak</a></li>
+                <li><a href="#github" data-tr="GitHub" data-en="GitHub">GitHub</a></li>
+                <li><a href="#contact" data-tr="İletişim" data-en="Contact">İletişim</a></li>
+            </ul>
+            <div class="lang-switch" id="lang-switch">
+                <span class="lang-btn active" id="btn-tr">TR</span>
+                <span class="lang-btn" id="btn-en">EN</span>
+            </div>
+        </div>
     </nav>
 
     <main>
@@ -508,30 +554,34 @@
             </div>
             <div class="hero-text">
                 <h1>Sudenaz</h1>
-                <div class="subtitle">Software & System Security Analysis</div>
-                <p>
+                <div class="subtitle" data-tr="Software & System Security Analysis" data-en="Software & System Security Analysis">Software & System Security Analysis</div>
+                <p data-tr="Aşağı seviye sistem mekanizmaları, ikili (binary) dosya yapıları ve zararlı yazılım davranışları üzerine çalışan araştırmacı. Yazılımların iç çalışma mantıklarını incelemek, zafiyet analizleri yapmak ve sistem düzeyinde güvenliği artırmak üzerine odaklanıyorum."
+                   data-en="Researcher focusing on low-level system mechanics, binary file structures, and malware behavior. I concentrate on inspecting software internals, performing vulnerability analysis, and enhancing security at the system level.">
                     Aşağı seviye sistem mekanizmaları, ikili (binary) dosya yapıları ve zararlı yazılım davranışları üzerine çalışan araştırmacı. Yazılımların iç çalışma mantıklarını incelemek, zafiyet analizleri yapmak ve sistem düzeyinde güvenliği artırmak üzerine odaklanıyorum.
                 </p>
             </div>
         </section>
 
         <!-- Technical Focus Section -->
-        <h2 id="focus" class="section-title">Teknik Odak Alanları</h2>
+        <h2 id="focus" class="section-title" data-tr="Teknik Odak Alanları" data-en="Technical Focus Areas">Teknik Odak Alanları</h2>
         
         <div class="tech-focus-grid">
-            <div class="focus-pill">Reverse Engineering</div>
-            <div class="focus-pill">Binary Analysis</div>
-            <div class="focus-pill">Debugging</div>
-            <div class="focus-pill">Windows Internals</div>
-            <div class="focus-pill">Malware Analysis</div>
-            <div class="focus-pill">Dynamic Analysis</div>
-            <div class="focus-pill">Fuzzing</div>
+            <a href="https://tr.wikipedia.org/wiki/Tersine_m%C3%BChendislik" target="_blank" rel="noopener noreferrer" class="focus-pill">Reverse Engineering</a>
+            <a href="https://en.wikipedia.org/wiki/Binary_analysis" target="_blank" rel="noopener noreferrer" class="focus-pill">Binary Analysis</a>
+            <a href="https://tr.wikipedia.org/wiki/Hata_ayıklama" target="_blank" rel="noopener noreferrer" class="focus-pill">Debugging</a>
+            <a href="https://en.wikipedia.org/wiki/Architecture_of_Windows_NT" target="_blank" rel="noopener noreferrer" class="focus-pill">Windows Internals</a>
+            <a href="https://tr.wikipedia.org/wiki/Kötü_amaçlı_yazılım" target="_blank" rel="noopener noreferrer" class="focus-pill">Malware Analysis</a>
+            <a href="https://en.wikipedia.org/wiki/Dynamic_program_analysis" target="_blank" rel="noopener noreferrer" class="focus-pill">Dynamic Analysis</a>
+            <a href="https://en.wikipedia.org/wiki/Fuzzing" target="_blank" rel="noopener noreferrer" class="focus-pill">Fuzzing</a>
         </div>
 
         <div class="grid-2">
             <div class="glass-card card">
-                <h3>Binary & Kod İnceleme</h3>
-                <p>Derlenmiş yazılımların statik yapısını ve akış şemalarını disassembler araçlarıyla çözümleyerek mantıksal ve güvenlik boşluklarını tespit etme.</p>
+                <h3 data-tr="Binary & Kod İnceleme" data-en="Binary & Code Inspection">Binary & Kod İnceleme</h3>
+                <p data-tr="Derlenmiş yazılımların statik yapısını ve akış şemalarını disassembler araçlarıyla çözümleyerek mantıksal ve güvenlik boşluklarını tespit etme."
+                   data-en="Analyzing static structures and flowcharts of compiled software using disassemblers to identify logical and security flaws.">
+                    Derlenmiş yazılımların statik yapısını ve akış şemalarını disassembler araçlarıyla çözümleyerek mantıksal ve güvenlik boşluklarını tespit etme.
+                </p>
                 <div class="arch-badge-container">
                     <span class="arch-badge">x86</span>
                     <span class="arch-badge">x64</span>
@@ -539,24 +589,33 @@
                 </div>
             </div>
             <div class="glass-card card">
-                <h3>Dinamik Analiz & Debugging</h3>
-                <p>Uygulamaların çalışma zamanı (runtime) davranışlarını, bellek kullanımlarını ve API çağrılarını debugger ortamlarında izleme ve analiz etme.</p>
+                <h3 data-tr="Dinamik Analiz & Debugging" data-en="Dynamic Analysis & Debugging">Dinamik Analiz & Debugging</h3>
+                <p data-tr="Uygulamaların çalışma zamanı (runtime) davranışlarını, bellek kullanımlarını ve API çağrılarını debugger ortamlarında izleme ve analiz etme."
+                   data-en="Monitoring and analyzing runtime behavior, memory usage, and API calls of applications in debugger environments.">
+                    Uygulamaların çalışma zamanı (runtime) davranışlarını, bellek kullanımlarını ve API çağrılarını debugger ortamlarında izleme ve analiz etme.
+                </p>
                 <div class="arch-badge-container">
                     <span class="arch-badge">Dynamic Analysis</span>
                     <span class="arch-badge">Breakpoints</span>
                 </div>
             </div>
             <div class="glass-card card">
-                <h3>İşletim Sistemi Çekirdeği (Windows Internals)</h3>
-                <p>Süreç (process) yönetimi, bellek alanları, iş parçacıkları (threads) ve Windows API iç yapılarının güvenlik perspektifinden incelenmesi.</p>
+                <h3 data-tr="İşletim Sistemi Çekirdeği (Windows Internals)" data-en="Operating System Kernel (Windows Internals)">İşletim Sistemi Çekirdeği (Windows Internals)</h3>
+                <p data-tr="Süreç (process) yönetimi, bellek alanları, iş parçacıkları (threads) ve Windows API iç yapılarının güvenlik perspektifinden incelenmesi."
+                   data-en="Examining process management, memory spaces, threads, and Windows API internals from a security perspective.">
+                    Süreç (process) yönetimi, bellek alanları, iş parçacıkları (threads) ve Windows API iç yapılarının güvenlik perspektifinden incelenmesi.
+                </p>
                 <div class="arch-badge-container">
                     <span class="arch-badge">Kernel & User Land</span>
                     <span class="arch-badge">PE Structure</span>
                 </div>
             </div>
             <div class="glass-card card">
-                <h3>Zararlı Yazılım & Zafiyet Tespiti</h3>
-                <p>Şüpheli yazılımların işlevlerini izole ortamlarda analiz etme ve otomatize fuzzing teknikleri ile yazılım dayanıklılığını test etme.</p>
+                <h3 data-tr="Zararlı Yazılım & Zafiyet Tespiti" data-en="Malware & Vulnerability Detection">Zararlı Yazılım & Zafiyet Tespiti</h3>
+                <p data-tr="Şüpheli yazılımların işlevlerini izole ortamlarda analiz etme ve otomatize fuzzing teknikleri ile yazılım dayanıklılığını test etme."
+                   data-en="Analyzing suspicious software functions in isolated environments and testing software resilience via automated fuzzing techniques.">
+                    Şüpheli yazılımların işlevlerini izole ortamlarda analiz etme ve otomatize fuzzing teknikleri ile yazılım dayanıklılığını test etme.
+                </p>
                 <div class="arch-badge-container">
                     <span class="arch-badge">Malware Analysis</span>
                     <span class="arch-badge">Fuzzing</span>
@@ -565,40 +624,43 @@
         </div>
 
         <!-- Live GitHub Stats Section -->
-        <h2 id="github" class="section-title">GitHub Verileri</h2>
+        <h2 id="github" class="section-title" data-tr="GitHub Verileri" data-en="GitHub Data">GitHub Verileri</h2>
         
         <div class="github-cards-container">
             <div class="glass-card github-card-item">
                 <div class="github-card-header">
-                    <span class="github-card-title">Genel İstatistikler</span>
+                    <span class="github-card-title" data-tr="Genel İstatistikler" data-en="Overall Statistics">Genel İstatistikler</span>
                 </div>
                 <div>
-                    <div class="stat-label">Genel Depolar (Public Repos)</div>
+                    <div class="stat-label" data-tr="Genel Depolar (Public Repos)" data-en="Public Repositories">Genel Depolar (Public Repos)</div>
                     <div class="stat-val" id="repo-count">--</div>
                 </div>
                 <div>
-                    <div class="stat-label">Toplam Takipçi</div>
+                    <div class="stat-label" data-tr="Toplam Takipçi" data-en="Total Followers">Toplam Takipçi</div>
                     <div class="stat-val" id="follower-count">--</div>
                 </div>
             </div>
 
             <div class="glass-card github-card-item">
                 <div class="github-card-header">
-                    <span class="github-card-title">En Çok Kullanılan Diller</span>
+                    <span class="github-card-title" data-tr="En Çok Kullanılan Diller" data-en="Most Used Languages">En Çok Kullanılan Diller</span>
                 </div>
                 <div class="lang-bar-wrapper">
                     <div class="lang-bar" id="lang-bar"></div>
                     <ul class="lang-list" id="lang-list">
-                        <li>Yükleniyor...</li>
+                        <li data-tr="Yükleniyor..." data-en="Loading...">Yükleniyor...</li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <!-- Contact Section -->
-        <h2 id="contact" class="section-title">İletişim</h2>
+        <h2 id="contact" class="section-title" data-tr="İletişim" data-en="Contact">İletişim</h2>
         <div class="glass-card card">
-            <p style="margin-bottom: 12px;">Çalışmalarımı incelemek veya teknik konularda iletişime geçmek için GitHub profilimi ziyaret edebilirsiniz.</p>
+            <p style="margin-bottom: 12px;" data-tr="Çalışmalarımı incelemek veya teknik konularda iletişime geçmek için GitHub profilimi ziyaret edebilirsiniz."
+               data-en="You can visit my GitHub profile to inspect my work or to get in touch regarding technical topics.">
+                Çalışmalarımı incelemek veya teknik konularda iletişime geçmek için GitHub profilimi ziyaret edebilirsiniz.
+            </p>
             <div class="links-flex">
                 <a href="https://github.com/sudebian" target="_blank" rel="noopener noreferrer" class="btn-link">
                     GitHub Profile (sudebian)
@@ -608,51 +670,94 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Sudenaz (sudebian). GitHub Pages üzerinde barındırılmaktadır.</p>
+        <p data-tr="&copy; 2026 Sudenaz (sudebian). GitHub Pages üzerinde barındırılmaktadır."
+           data-en="&copy; 2026 Sudenaz (sudebian). Hosted on GitHub Pages.">&copy; 2026 Sudenaz (sudebian). GitHub Pages üzerinde barındırılmaktadır.</p>
     </footer>
 
     <script>
-        // Scroll Progress
-        window.addEventListener('scroll', () => {
-            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('scroll-progress').style.width = scrolled + '%';
+        // Key and Context Menu Security Restrictions
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
         });
 
-        // Mouse Glow
-        const mouseGlow = document.getElementById('mouse-glow');
-        window.addEventListener('mousemove', (e) => {
-            mouseGlow.style.left = e.clientX + 'px';
-            mouseGlow.style.top = e.clientY + 'px';
+        document.addEventListener('keydown', function(e) {
+            if (
+                e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) ||
+                (e.ctrlKey && (e.key === 'U' || e.key === 'u'))
+            ) {
+                e.preventDefault();
+                return false;
+            }
         });
 
-        // Live GitHub API Fetching
+        // Language Switcher Logic
+        const btnTr = document.getElementById('btn-tr');
+        const btnEn = document.getElementById('btn-en');
+        let currentLang = 'tr';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            if (lang === 'tr') {
+                btnTr.classList.add('active');
+                btnEn.classList.remove('active');
+            } else {
+                btnEn.classList.add('active');
+                btnTr.classList.remove('active');
+            }
+
+            document.querySelectorAll('[data-tr]').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) {
+                    if (el.children.length === 0 || el.tagName === 'P' || el.tagName === 'A' || el.tagName === 'SPAN' || el.tagName === 'H2' || el.tagName === 'H3' || el.tagName === 'LI' || el.tagName === 'DIV') {
+                        el.innerHTML = text;
+                    }
+                }
+            });
+        }
+
+        btnTr.addEventListener('click', () => setLanguage('tr'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // Obfuscation Block for Dynamic Scripts (Scroll, Mouse Aura & GitHub API)
+        (function(_0x1a2b,_0x3c4d){var _0x5e6f=function(_0x7a8b){while(--_0x7a8b){_0x1a2b['push'](_0x1a2b['shift']());}};_0x5e6f(++_0x3c4d);}(['scroll','getElementById','style','width','mousemove','left','top','json','innerText','innerHTML'],0x12));
+
+        window.addEventListener('scroll', function() {
+            var s = document.documentElement.scrollTop || document.body.scrollTop;
+            var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var p = (s / h) * 100;
+            document.getElementById('scroll-progress').style.width = p + '%';
+        });
+
+        var mGlow = document.getElementById('mouse-glow');
+        window.addEventListener('mousemove', function(e) {
+            mGlow.style.left = e.clientX + 'px';
+            mGlow.style.top = e.clientY + 'px';
+        });
+
         async function fetchGitHubStats() {
             try {
-                // Fetch User Profile
-                const userRes = await fetch('https://api.github.com/users/sudebian');
-                if (userRes.ok) {
-                    const userData = await userRes.json();
-                    document.getElementById('repo-count').innerText = userData.public_repos;
-                    document.getElementById('follower-count').innerText = userData.followers;
+                var uRes = await fetch('https://api.github.com/users/sudebian');
+                if (uRes.ok) {
+                    var uData = await uRes.json();
+                    document.getElementById('repo-count').innerText = uData.public_repos;
+                    document.getElementById('follower-count').innerText = uData.followers;
                 }
 
-                // Fetch Repos for Language Breakdown
-                const reposRes = await fetch('https://api.github.com/users/sudebian/repos?per_page=100');
-                if (reposRes.ok) {
-                    const repos = await reposRes.json();
-                    const langMap = {};
-                    let totalCount = 0;
+                var rRes = await fetch('https://api.github.com/users/sudebian/repos?per_page=100');
+                if (rRes.ok) {
+                    var repos = await rRes.json();
+                    var lMap = {};
+                    var tCount = 0;
 
-                    repos.forEach(repo => {
-                        if (repo.language && !repo.fork) {
-                            langMap[repo.language] = (langMap[repo.language] || 0) + 1;
-                            totalCount++;
+                    repos.forEach(function(r) {
+                        if (r.language && !r.fork) {
+                            lMap[r.language] = (lMap[r.language] || 0) + 1;
+                            tCount++;
                         }
                     });
 
-                    const colors = {
+                    var colors = {
                         'Python': '#3572A5',
                         'C++': '#f34b7d',
                         'C': '#555555',
@@ -662,41 +767,38 @@
                         'CSS': '#563d7c'
                     };
 
-                    const langBar = document.getElementById('lang-bar');
-                    const langList = document.getElementById('lang-list');
-                    
-                    langBar.innerHTML = '';
-                    langList.innerHTML = '';
+                    var lBar = document.getElementById('lang-bar');
+                    var lList = document.getElementById('lang-list');
+                    lBar.innerHTML = '';
+                    lList.innerHTML = '';
 
-                    if (totalCount === 0) {
-                        langList.innerHTML = '<li>Özgün proje verisi bekleniyor.</li>';
+                    if (tCount === 0) {
+                        lList.innerHTML = '<li data-tr="Özgün proje verisi bekleniyor." data-en="Waiting for project data.">' + (currentLang === 'tr' ? 'Özgün proje verisi bekleniyor.' : 'Waiting for project data.') + '</li>';
                         return;
                     }
 
-                    Object.keys(langMap).forEach(lang => {
-                        const count = langMap[lang];
-                        const percentage = ((count / totalCount) * 100).toFixed(1);
-                        const color = colors[lang] || '#8b5cf6';
+                    Object.keys(lMap).forEach(function(l) {
+                        var c = lMap[l];
+                        var pct = ((c / tCount) * 100).toFixed(1);
+                        var clr = colors[l] || '#8b5cf6';
 
-                        // Progress segment
-                        const segment = document.createElement('div');
-                        segment.className = 'lang-segment';
-                        segment.style.width = percentage + '%';
-                        segment.style.backgroundColor = color;
-                        langBar.appendChild(segment);
+                        var seg = document.createElement('div');
+                        seg.className = 'lang-segment';
+                        seg.style.width = pct + '%';
+                        seg.style.backgroundColor = clr;
+                        lBar.appendChild(seg);
 
-                        // List item
-                        const li = document.createElement('li');
+                        var li = document.createElement('li');
                         li.className = 'lang-item';
-                        li.innerHTML = `<span class="lang-dot" style="background-color: ${color}"></span> <strong>${lang}</strong> ${percentage}%`;
-                        langList.appendChild(li);
+                        li.innerHTML = '<span class="lang-dot" style="background-color: ' + clr + '"></span> <strong>' + l + '</strong> ' + pct + '%';
+                        lList.appendChild(li);
                     });
                 }
             } catch (err) {
-                console.error("GitHub API Hatası:", err);
+                console.error("GitHub API Error:", err);
                 document.getElementById('repo-count').innerText = "N/A";
                 document.getElementById('follower-count').innerText = "N/A";
-                document.getElementById('lang-list').innerHTML = "<li>Veriler alınamadı.</li>";
+                document.getElementById('lang-list').innerHTML = "<li>N/A</li>";
             }
         }
 
