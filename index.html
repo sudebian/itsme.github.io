@@ -1,26 +1,503 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Baha | Reverse Engineer</title>
-<link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudenaz | Software & System Security Analysis</title>
+    <meta name="description" content="Sudenaz (sudebian) - Yazılım analizi, tersine mühendislik ve sistem güvenliği kişisel portfolyosu.">
+    <meta name="keywords" content="sudebian, sudenaz, reverse engineering, binary analysis, cybersecurity, software architecture">
+    <meta name="author" content="Sudenaz">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sudenaz | Software & System Security Analysis">
+    <meta property="og:description" content="Yazılım analizi, binary inceleme ve sistem güvenliği odaklı kişisel portfolyo.">
+    <meta property="og:image" content="assets/images/profile.webp">
+
+    <!-- Favicon & Manifest -->
+    <link rel="icon" type="image/webp" href="assets/images/profile.webp">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#8b5cf6">
+
+    <style>
+        :root {
+            --bg-dark: #070510;
+            --purple-main: #8b5cf6;
+            --purple-glow: rgba(139, 92, 246, 0.4);
+            --pink-neon: #ec4899;
+            --pink-glow: rgba(236, 72, 153, 0.5);
+            --glass-bg: rgba(18, 14, 36, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-hover: rgba(255, 255, 255, 0.18);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--purple-main), var(--pink-neon));
+            width: 0%;
+            z-index: 1000;
+            box-shadow: 0 0 10px var(--pink-neon);
+        }
+
+        /* Mouse Glow Aura */
+        #mouse-glow {
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--purple-glow) 0%, rgba(236,72,153,0.15) 40%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: transform 0.08s ease-out;
+            mix-blend-mode: screen;
+        }
+
+        /* Animated Aurora Background */
+        .aurora-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .aurora {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.5;
+            border-radius: 50%;
+            animation: moveAurora 20s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+        }
+
+        .aurora-1 {
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--purple-main), transparent 70%);
+        }
+
+        .aurora-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, var(--pink-neon), transparent 70%);
+            animation-delay: -5s;
+        }
+
+        .aurora-3 {
+            top: 40%;
+            left: 30%;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, #4c1d95, transparent 70%);
+            animation-delay: -10s;
+        }
+
+        @keyframes moveAurora {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(100px, 50px) scale(1.1); }
+            100% { transform: translate(-50px, 100px) scale(0.9); }
+        }
+
+        /* Glassmorphism Common Layout */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: var(--glass-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px 0 rgba(139, 92, 246, 0.25);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 900px;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--pink-neon);
+        }
+
+        /* Main Container */
+        main {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .profile-img-wrap {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--purple-main), var(--pink-neon));
+            box-shadow: 0 0 25px var(--purple-glow);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background-color: #1a102f;
+            display: block;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #fff, var(--pink-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.1rem;
+            color: var(--purple-main);
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Section Headings */
+        .section-title {
+            font-size: 1.5rem;
+            margin: 50px 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--glass-border), transparent);
+        }
+
+        /* Focus Cards */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            padding: 24px;
+        }
+
+        .card h3 {
+            color: var(--pink-neon);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Tech Badges */
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .tag {
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #d8b4fe;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* GitHub Stats */
+        .stats-wrapper {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .stats-wrapper img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Contact & Links */
+        .links-flex {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: rgba(236, 72, 153, 0.1);
+            border: 1px solid var(--pink-neon);
+            transition: all 0.3s ease;
+        }
+
+        .btn-link:hover {
+            background: var(--pink-neon);
+            box-shadow: 0 0 15px var(--pink-glow);
+            color: #000;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                justify-items: center;
+                padding: 24px;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none; /* Basit mobil deneyimi */
+            }
+
+            main {
+                padding-top: 90px;
+            }
+        }
+    </style>
 </head>
 <body>
-<header class="hero">
-<nav><a href="#">Home</a><a href="#about">About</a><a href="#projects">Projects</a><a href="#contact">Contact</a></nav>
-<section class="hero-content">
-<h1>BAHA</h1>
-<p class="typing">Reverse Engineer • Debugger • Security Researcher</p>
-<a class="btn" href="#projects">View Projects</a>
-</section>
-</header>
-<section id="about"><h2>About</h2><p>Welcome to my portfolio.</p></section>
-<section id="projects"><h2>Projects</h2>
-<div class="card"><h3>Ghidra Automation Scripts</h3><p>Example automation workflows.</p></div>
-<div class="card"><h3>Debugger Utilities</h3><p>Example debugging toolkit.</p></div>
-<div class="card"><h3>Binary Analysis Notes</h3><p>Reverse engineering notes.</p></div>
-</section>
-<section id="contact"><h2>Contact</h2><p>GitHub • Discord • LinkedIn</p></section>
-<script src="assets/js/script.js"></script>
-</body></html>
+
+    <div id="scroll-progress"></div>
+    <div id="mouse-glow"></div>
+
+    <div class="aurora-container">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
+    </div>
+
+    <nav class="glass-card">
+        <a href="#" class="nav-logo">sudebian</a>
+        <ul class="nav-links">
+            <li><a href="#about">Hakkımda</a></li>
+            <li><a href="#focus">Odak Alanları</a></li>
+            <li><a href="#github">İstatistikler</a></li>
+            <li><a href="#contact">İletişim</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="about" class="glass-card hero">
+            <div class="profile-img-wrap">
+                <img src="assets/images/profile.webp" alt="Sudenaz Profile Picture" class="profile-img" onerror="this.src='https://github.com/sudebian.png'">
+            </div>
+            <div class="hero-text">
+                <h1>Sudenaz</h1>
+                <div class="subtitle">Software & System Security Analysis</div>
+                <p>
+                    Düşük seviyeli sistem mimarileri, yazılım iç yapıları ve ikili (binary) dosya analizi üzerine odaklanan teknik inceleme odaklı geliştirici. Kodun derleme sonrası davranışlarını inceleme ve sistem güvenliğini optimize etme üzerine projeler yürütüyorum.
+                </p>
+            </div>
+        </section>
+
+        <!-- Technical Focus Section -->
+        <h2 id="focus" class="section-title">Teknik Odak Alanları</h2>
+        <div class="grid-2">
+            <div class="glass-card card">
+                <h3>Binary & Statik Analiz</h3>
+                <p>Derlenmiş yürütülebilir dosyaların çalışma mantığını kavrama, veri akışını izleme ve kod blokları arasındaki ilişkileri haritalandırma.</p>
+                <div class="tag-container">
+                    <span class="tag">Assembly</span>
+                    <span class="tag">C / C++</span>
+                    <span class="tag">Disassembly</span>
+                </div>
+            </div>
+            <div class="glass-card card">
+                <h3>Sistem Güvenliği & Mimari</h3>
+                <p>İşletim sistemi seviyesinde süreç yönetimi, bellek yapısı analizleri ve güvenlik mekanizmalarının tespiti.</p>
+                <div class="tag-container">
+                    <span class="tag">Windows Internals</span>
+                    <span class="tag">Memory Structures</span>
+                    <span class="tag">Process Inspection</span>
+                </div>
+            </div>
+            <div class="glass-card card">
+                <h3>Otomasyon & Araç Geliştirme</h3>
+                <p>Analiz süreçlerini hızlandırmak için özel betikler, dosya ayrıştırıcılar ve arayüz entegrasyonları hazırlama.</p>
+                <div class="tag-container">
+                    <span class="tag">Python</span>
+                    <span class="tag">Automation</span>
+                    <span class="tag">Custom Tooling</span>
+                </div>
+            </div>
+            <div class="glass-card card">
+                <h3>Yazılım Tasarımı</h3>
+                <p>Güvenli kod geliştirme prensiplerine uygun, sürdürülebilir ve performans odaklı uygulama mimarileri oluşturma.</p>
+                <div class="tag-container">
+                    <span class="tag">Secure Coding</span>
+                    <span class="tag">GUI Development</span>
+                    <span class="tag">Git</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GitHub Stats Section -->
+        <h2 id="github" class="section-title">GitHub Aktivitesi</h2>
+        <div class="glass-card stats-wrapper">
+            <img src="https://github-readme-stats.vercel.app/api?username=sudebian&show_icons=true&theme=synthwave&hide_border=true&bg_color=00000000" alt="GitHub Stats">
+            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=sudebian&layout=compact&theme=synthwave&hide_border=true&bg_color=00000000" alt="Top Languages">
+        </div>
+
+        <!-- Contact Section -->
+        <h2 id="contact" class="section-title">İletişim & Bağlantılar</h2>
+        <div class="glass-card card">
+            <p style="margin-bottom: 16px;">Projelerimi incelemek veya teknik konularda iletişime geçmek için GitHub profilimi ziyaret edebilirsiniz.</p>
+            <div class="links-flex">
+                <a href="https://github.com/sudebian" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    GitHub Profile
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Sudenaz (sudebian). GitHub Pages üzerinde barındırılmaktadır.</p>
+    </footer>
+
+    <script>
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scroll-progress').style.width = scrolled + '%';
+        });
+
+        // Mouse Glow Tracking
+        const mouseGlow = document.getElementById('mouse-glow');
+        window.addEventListener('mousemove', (e) => {
+            mouseGlow.style.left = e.clientX + 'px';
+            mouseGlow.style.top = e.clientY + 'px';
+        });
+    </script>
+</body>
+</html>
