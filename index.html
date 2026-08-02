@@ -34,6 +34,7 @@
             --text-muted: #9ca3af;
         }
 
+        /* user-select: none; kuralı eklendi */
         * {
             margin: 0;
             padding: 0;
@@ -376,7 +377,7 @@
             font-weight: 600;
         }
 
-        /* GitHub Section (Live Interactive Cards) */
+        /* GitHub Section */
         .github-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -539,6 +540,7 @@
                 <li><a href="#github" data-tr="GitHub" data-en="GitHub">GitHub</a></li>
                 <li><a href="#contact" data-tr="İletişim" data-en="Contact">İletişim</a></li>
             </ul>
+            <!-- Türkçe / İngilizce Dil Seçim Ekranı -->
             <div class="lang-switch" id="lang-switch">
                 <span class="lang-btn active" id="btn-tr">TR</span>
                 <span class="lang-btn" id="btn-en">EN</span>
@@ -565,6 +567,7 @@
         <!-- Technical Focus Section -->
         <h2 id="focus" class="section-title" data-tr="Teknik Odak Alanları" data-en="Technical Focus Areas">Teknik Odak Alanları</h2>
         
+        <!-- Tıklanabilir Wikipedia Rozetleri -->
         <div class="tech-focus-grid">
             <a href="https://tr.wikipedia.org/wiki/Tersine_m%C3%BChendislik" target="_blank" rel="noopener noreferrer" class="focus-pill">Reverse Engineering</a>
             <a href="https://en.wikipedia.org/wiki/Binary_analysis" target="_blank" rel="noopener noreferrer" class="focus-pill">Binary Analysis</a>
@@ -675,7 +678,7 @@
     </footer>
 
     <script>
-        // Key and Context Menu Security Restrictions
+        // Kısayol ve Sağ Tık Engeli (Security Restrictions)
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
@@ -691,7 +694,7 @@
             }
         });
 
-        // Language Switcher Logic
+        // Dil Değiştirme Mantığı (Language Switcher)
         const btnTr = document.getElementById('btn-tr');
         const btnEn = document.getElementById('btn-en');
         let currentLang = 'tr';
@@ -719,7 +722,7 @@
         btnTr.addEventListener('click', () => setLanguage('tr'));
         btnEn.addEventListener('click', () => setLanguage('en'));
 
-        // Obfuscation Block for Dynamic Scripts (Scroll, Mouse Aura & GitHub API)
+        // Karmaşıklaştırılmış JS (Obfuscated Dynamic Functions: Mouse Tracking, GitHub API & Scroll Bar)
         (function(_0x1a2b,_0x3c4d){var _0x5e6f=function(_0x7a8b){while(--_0x7a8b){_0x1a2b['push'](_0x1a2b['shift']());}};_0x5e6f(++_0x3c4d);}(['scroll','getElementById','style','width','mousemove','left','top','json','innerText','innerHTML'],0x12));
 
         window.addEventListener('scroll', function() {
